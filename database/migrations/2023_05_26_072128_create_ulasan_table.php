@@ -17,6 +17,7 @@ class CreateUlasanTable extends Migration
             $table->id();
             $table->string('nama');
             $table->string('email');
+            $table->string('subject');
             $table->longtext('ulasan');
             $table->timestamps();
         });

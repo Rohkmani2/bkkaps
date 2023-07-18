@@ -48,6 +48,7 @@ class UlasanController extends Controller
         $validate = $request->validate([
             'nama' => 'required',
             'email' => 'required',
+            'subject' => 'required',
             'ulasan' => 'required',
 
         ]);
@@ -96,6 +97,7 @@ class UlasanController extends Controller
              ->update([
                     'nama' => $request->nama,
                     'email' => $request->email,
+                    'subject' => $request->subject,
                     'ulasan' => $request->ulasan,
              ]);
         return redirect('ulasan')->with('success','Berhasil diupdate');

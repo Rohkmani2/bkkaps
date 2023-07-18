@@ -12,6 +12,6 @@ class Ulasan extends Model
     protected $table = 'ulasan';
     protected $autoincrement = 'id';
     protected $fillable = [
-        'nama', 'email', 'ulasan'
+        'nama', 'email', 'subject', 'ulasan'
     ];
 }

@@ -86,6 +86,15 @@
             @enderror
         </div>
         <div class="form-group">
+        <label for="exampleInputUsername1">Subject</label>
+            <input type="text" @error('subject') is-invalid @enderror" name='subject' class="form-control" id="exampleInputUsername1" placeholder="Nama Lengkap" value="{{ old('subject') }}">
+            @error('subject')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>
+        <div class="form-group">
             <label for="exampleInputConfirmPassword1">Pesan</label>
             <input type="text" @error('ulasan') is-invalid @enderror" name='ulasan' class="form-control" id="exampleInputConfirmPassword1" placeholder="Masukan pesan yang ingin anda sampaikan" value="{{ old('ulasan') }}">
             @error('ulasan')
@@ -145,6 +154,15 @@
             @enderror
         </div>
         <div class="form-group">
+            <label for="exampleInputUsername1">Subject</label>
+                <input type="text" @error('subject') is-invalid @enderror" name='subject' class="form-control" id="exampleInputUsername1" placeholder="Nama Lengkap" value="{{ $dom->subject }}">
+                @error('subject')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+        <div class="form-group">
             <label for="exampleInputConfirmPassword1">Pesan</label>
             <input type="text" @error('ulasan') is-invalid @enderror" name='ulasan' class="form-control" id="exampleInputConfirmPassword1" placeholder="Masukan pesan yang ingin anda sampaikan" value="{{ $dom->ulasan }}">
             @error('ulasan')
@@ -199,6 +217,15 @@
             </span>
             @enderror
         </div>
+        <div class="form-group">
+            <label for="exampleInputUsername1">Subject</label>
+                <input type="text" @error('subject') is-invalid @enderror" name='subject' class="form-control" id="exampleInputUsername1" placeholder="Nama Lengkap" value="{{ $dom->subject }}">
+                @error('subject')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
         <div class="form-group">
             <label for="exampleInputConfirmPassword1">Pesan</label>
             <input type="text" @error('ulasan') is-invalid @enderror" name='ulasan' class="form-control" id="exampleInputConfirmPassword1" placeholder="Masukan pesan yang ingin anda sampaikan" value="{{ $dom->ulasan }}">
