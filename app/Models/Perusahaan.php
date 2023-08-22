@@ -9,9 +9,9 @@ class Perusahaan extends Model
 {
     use HasFactory;
 
-    protected $table = 'alumni';
+    protected $table = 'perusahaan';
     protected $autoincrement = 'id';
     protected $fillable = [
-        'nama', 'email', 'telepon', 'password'
+        'nama', 'email', 'telepon', 'foto', 'agen','alamat'
     ];
 }

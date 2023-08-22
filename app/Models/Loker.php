@@ -12,6 +12,14 @@ class Loker extends Model
     protected $table = 'loker';
     protected $autoincrement = 'id';
     protected $fillable = [
-        'nama', 'posisi', 'detail', 'foto'
+        'id_perusahaan', 'posisi', 'usia','pendidikan','lokasi','detail', 'foto', 'status'
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
+    public function perusahaan()
+    {
+        return $this->belongsTo(Perusahaan::class, 'id_perusahaan');
+    }
 }

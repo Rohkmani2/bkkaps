@@ -12,6 +12,11 @@ class Ulasan extends Model
     protected $table = 'ulasan';
     protected $autoincrement = 'id';
     protected $fillable = [
-        'nama', 'email', 'subject', 'ulasan'
+        'nama', 'email', 'telepon', 'ulasan'
     ];
+    public function perusahaan()
+    {
+        return $this->belongsTo(Perusahaan::class, 'id_perusahaan');
+    }
+
 }

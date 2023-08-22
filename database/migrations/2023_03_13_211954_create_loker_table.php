@@ -18,6 +18,9 @@ class CreateLokerTable extends Migration
             $table->char('foto');
             $table->string('nama');
             $table->string('posisi');
+            $table->string('usia');
+            $table->string('pendidikan');
+            $table->string('lokasi');
             $table->string('detail');
             $table->timestamps();
         });

@@ -6,12 +6,7 @@
       <div class="col-md-12 grid-margin">
         <div class="d-flex justify-content-between align-items-center">
           <div>
-            <h4 class="font-weight-bold mb-0">Selamat Datang {{ auth()->user()->nama }}</h4>
-          </div>
-          <div>
-              <button type="button" class="btn btn-primary btn-icon-text btn-rounded">
-                <i class="ti-clipboard btn-icon-prepend"></i>Report
-              </button>
+            <h2 class="font-weight-bold mb-0">Selamat Datang {{ auth()->user()->nama }}</h2>
           </div>
         </div>
       </div>
@@ -33,7 +28,7 @@
           <div class="card-body">
             <p class="card-title text-md-center text-xl-left">Pencaker</p>
             <div class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
-              <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">{{ $jml_user }}</h3>
+              <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">{{ $jml_pencaker }}</h3>
               <i class="ti-user icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i>
             </div>
           </div>
@@ -44,7 +39,7 @@
           <div class="card-body">
             <p class="card-title text-md-center text-xl-left">Perusahaan</p>
             <div class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
-              <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">{{ $jml_user }}</h3>
+              <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">{{ $jml_perusahaan }}</h3>
               <i class="ti-user icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i>
             </div>
           </div>
@@ -55,7 +50,7 @@
           <div class="card-body">
             <p class="card-title text-md-center text-xl-left">Alumni</p>
             <div class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
-              <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">{{ $jml_user }}</h3>
+              <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">{{ $jml_pencaker }}</h3>
               <i class="ti-user icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i>
             </div>
           </div>

@@ -17,13 +17,13 @@ class UlasanController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if(auth()->user()->level == 'admin'){
+        if(auth()->user()->level == 'admin' || 'user'){
 
             $ulasan = DB::table('ulasan')->get();
         }else{
             $ulasan = DB::table('ulasan')->where('id_perusahaan', auth()->user()->id)->get();
         }
-        return view('ulasan.ulasan', ['ulasan'=> $ulasan]);
+             return view('ulasan.ulasan', ['ulasan'=> $ulasan]);
     }
 
 
@@ -48,7 +48,7 @@ class UlasanController extends Controller
         $validate = $request->validate([
             'nama' => 'required',
             'email' => 'required',
-            'subject' => 'required',
+            'telepon' => 'required',
             'ulasan' => 'required',
 
         ]);
@@ -56,7 +56,7 @@ class UlasanController extends Controller
         $ulasan = Ulasan::create($request->all());
         $pas = $ulasan->save();
         if($pas){
-            return redirect('ulasan')->with('success',' Pesan Anda berhasil ditambahkan');
+            return redirect()->back()->with('success',' Pesan Anda berhasil ditambahkan');
         } else {
             return back()->with('fail',' Terdapat kesalahan saat memasukan data');
         }
@@ -97,7 +97,7 @@ class UlasanController extends Controller
              ->update([
                     'nama' => $request->nama,
                     'email' => $request->email,
-                    'subject' => $request->subject,
+                    'telepon' => $request->telepon,
                     'ulasan' => $request->ulasan,
              ]);
         return redirect('ulasan')->with('success','Berhasil diupdate');

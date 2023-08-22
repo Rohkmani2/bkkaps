@@ -12,6 +12,6 @@ class Alumni extends Model
     protected $table = 'alumni';
     protected $autoincrement = 'id';
     protected $fillable = [
-        'nama', 'email', 'telepon','nim', 'password'
+        'nama', 'email', 'telepon', 'nik', 'password','jenis_kelamin', 'alamat', 'kota', 'agama', 'sekolah', 'jurusan', 'thn_lulus', 'usia', 'tt', 'tb'
     ];
 }

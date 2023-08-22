@@ -66,7 +66,7 @@ class InformasiController extends Controller
         }
 
         if($request->file('foto')) {
-            $validate["foto"] = $request->file('foto')->store('post_post');
+            $validate["foto"] = $request->file('foto')->store('foto_post');
         }
 
 

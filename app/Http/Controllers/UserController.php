@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\UserImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -46,12 +48,17 @@ class UserController extends Controller
         return view('login.register');
     }
 
+    public function import(Request $request)
+    {
+        $file = $request->file('file');
+        Excel::import(new UserImport, $file);
+        return redirect('user')->with('success', 'Data berhasil diimpor.');
+    }
+
     public function registerUser(Request $request)
     {
         $validate = $request->validate([
-            'nama' => 'required|max:255',
             'email' => 'required|email|unique:user',
-            'telepon' => 'required',
             'password' => 'required|min:6|max:255',
             'level' => 'required'
 
@@ -59,15 +66,13 @@ class UserController extends Controller
 
         $validate['password'] = bcrypt($validate['password']);
         $user = new User();
-        $user->nama = $request->nama;
         $user->email = $request->email;
-        $user->telepon = $request->telepon;
         $user->level = $request->level;
         $user->password = Hash::make($request->password);
         // if ($request->level == 'perusahaan') {
         //     $user->status = '0';
         // } elseif ($request->level == 'user') {
-        $user->status = '1';
+        $user->status = '0';
         // }
         $res = $user->save();
         if ($res) {
@@ -80,18 +85,14 @@ class UserController extends Controller
     public function regisByAdmin(Request $request)
     {
         $validate = $request->validate([
-            'nama' => 'required|max:255',
             'email' => 'required|email|unique:user',
-            'telepon' => 'required',
             'password' => 'required|min:6|max:255'
 
         ]);
 
         $validate['password'] = bcrypt($validate['password']);
         $user = new User();
-        $user->nama = $request->nama;
         $user->email = $request->email;
-        $user->telepon = $request->telepon;
         $user->password = Hash::make($request->password);
         $res = $user->save();
         if ($res) {
@@ -108,8 +109,12 @@ class UserController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
+        $user = User::find(auth()->user()->id); // Ganti sesuai dengan cara Anda mengambil pengguna saat ini
         $user->update($request->all());
+        $newPassword = 'password_baru'; // Ganti dengan password baru yang ingin Anda gunakan
+        $hashedPassword = Hash::make($newPassword);
+        $user->password = $hashedPassword;
+        $user->save();
         return redirect('user')->with('success', 'Berhasil diupdate');
     }
 
@@ -147,31 +152,20 @@ class UserController extends Controller
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
-        } else {
-            if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1])) {
+        }
+            $validated = $validator->validated();
+            if (Auth::attempt(['email' => $validated['email'], 'password' => $validated['password'], 'status' => 1])) {
                 $user = Auth::user();
-                // if (Auth::check() == 1) {
-                    if ($user->level == 'pencaker' | $user->level == 'alumni') {
+                    if ($user->level == 'pencaker' || $user->level == 'alumni') {
                         return redirect('home');
                     } elseif ($user->level == "perusahaan") {
                         return redirect('country.dashboard');
                     }else {
                         return redirect('dashboard');
                     }
-                    // var_dump('status 1');die();
-                    // if ($user->level == 'admin') {
-                    //     return redirect('dashboard');
-                    // } elseif ($user->level == "pencaker") {
-                    //     return redirect('home');
-                    // }  elseif ($user->level == "perusahaan") {
-                    //     return redirect('home');
-                    // }
-
-                // }
             }
 
             return back()->with('fail', 'Password salah atau Akun belum diverifikasi!');
-        }
     }
 
     public function logout(Request $request)

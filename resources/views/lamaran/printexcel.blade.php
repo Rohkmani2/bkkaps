@@ -1,79 +1,134 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <style>
-#customers {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cetak Kartu</title>
+    <style>
+        .container {
+            border: 1px solid black;
+            height: 550px;
+            width: 450px;
+            text-align: center;
+            margin: auto;
+        }
 
-#customers td, #customers th {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
+        .column {
+            float: left;
+            text-align: center;
+            width: 33.33%;
+        }
 
-#customers tr:nth-child(even){background-color: #f2f2f2;}
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
 
-#customers tr:hover {background-color: #ddd;}
+        table {
+            margin: auto;
+            width: 80%;
+        }
 
-#customers th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #426de4;
-  color: white;
-}
-</style>
+        tr {
+            text-align: left;
+        }
+
+        table, th, td {
+            border-collapse: collapse;
+        }
+
+        p {
+            margin-top: 15px;
+        }
+
+        .foto-peserta {
+            float: right;
+        }
+
+        .column2 {
+            margin-bottom: 20px;
+            float: left;
+            text-align: center;
+            width: 50%;
+        }
+
+        .kotak-pendaftaran {
+            border: 1px solid black;
+            width: 60px; 
+            height: 60px; 
+            margin-left: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+			padding: 20px;
+        }
+
+        .kotak-pendaftaran h4 {
+            margin: 0;
+            padding: 5px;
+        }
+
+    </style>
 </head>
 <body>
-    <p align="center"><b>LAPORAN DATA LAMARAN KERJA</b></p>
-<table id="customers">
-  <tr>
-    <th>No</th>
-    <th>Nama Lengkap</th>
-    <th>Jenis Kelamin</th>
-    <th>Email</th>
-    <th>NIK</th>
-    <th>No Handphone</th>
-    <th>Asal Kabupaten/kota</th>
-    <th>Alamat Domisili</th>
-    <th>Agama</th>
-    <th>Tanggal Lahir</th>
-    <th>Usia</th>
-    <th>Tinggi Badan</th>
-    <th>Berat Badan</th>
-    <th>Status Vaksin</th>
-    <th>Asal Sekolah</th>
-    <th>Tahun Lulus</th>
-    <th>Pengalaman Kerja</th>
-    <th>Jurusan</th>
-  </tr>
-  @foreach($data as $icon )
-           <tr>
-             <td>{{ $loop->iteration }}</td>
-             <td>{{ $icon->nama }}</td>
-             <td>{{ $icon->jenis_kelamin }}</td>
-             <td>{{ $icon->email }}</td>
-             <td>{{ $icon->nik }}</td>
-             <td>{{ $icon->telepon }}</td>
-             <td>{{ $icon->kota }}</td>
-             <td>{{ $icon->alamat }}</td>
-             <td>{{ $icon->agama }}</td>
-             <td>{{ $icon->tgl_lahir }}</td>
-             <td>{{ $icon->usia }}</td>
-             <td>{{ $icon->tb }}</td>
-             <td>{{ $icon->bb }}</td>
-             <td>{{ $icon->vaksin }}</td>
-             <td>{{ $icon->sekolah }}</td>
-             <td>{{ $icon->thn_lulus }}</td>
-             <td>{{ $icon->pengalaman }}</td>
-             <td>{{ $icon->jurusan }}</td>
-  </tr>
-  @endforeach
-</table>
+    <div class="container">
+        <div class="row">
+            <div class="column">
+                <img src="images/smknonewie.png" alt="Logo Instansi" style="width:50px; margin-top: 40px;" height="90px">
+            </div>
+            <div class="column">
+                <h2>BKK SMK NEGERI 1 WIDASARI</h2>
+            </div>
+            <div class="column">
+                <img src="images/bkkonewie.png" alt="Logo Instansi" style="width:50px; margin-top: 40px;" height="95px">
+            </div>
+        </div>
+        <hr style="width: 85%; text-align: center;">
+
+        <h3 style="text-align: center">Kartu Pendaftaran</h3>
+
+        {{--  <div class="row">
+            <div class="column2">
+                <div class="kotak-pendaftaran">
+                    <h4>
+                        Kode Pendaftaran <br>
+                        
+                    </h4>
+                </div>
+            </div>
+            <div class="column2">
+                <img src="images/bkkonewie.png" alt="Foto Peserta" style="width:100px; height:100px;">
+            </div>
+        </div>  --}}
+    
+        <table>
+            <tr>
+                <td><b>Nama</b></td>
+                <td>:</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><b>Jurusan</b></td>
+                <td>:</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><b>Asal Sekolah</b></td>
+                <td>:</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><b>Jenis Kelamin</b></td>
+                <td>:</td>
+                <td></td>
+            </tr>
+        </table>
+
+        <p style="margin-top: 40px">Kartu ini wajib dibawa saat melakukan daftar ulang <br> atau pelaksanaan seleksi</p>
+    </div>
+    
 </body>
-<script type="text/javascript">
-    window.print();
-</script>
 </html>

@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>RoyalUI Admin</title>
+  <title>LOGIN</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="../../vendors/ti-icons/css/themify-icons.css">
   <link rel="stylesheet" href="../../vendors/base/vendor.bundle.base.css">
@@ -15,7 +15,7 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="../../css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="../../images/favicon.png" />
+  <link rel="shortcut icon" href="../../images/bkkonewie.png" />
 </head>
 
 <body>
@@ -27,12 +27,13 @@
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
               <div class="brand-logo">
                 <center>
-                    <img src="../../images/bkkonewie.jpg" alt="logo">
+                    <img src="../../images/bkkonewie.png" alt="logo">
                 </center>
               </div>
               <h4>Selamat Datang di Bursa Kerja Khusus SMKN 1 Widasari</h4>
-              <h6 class="font-weight-light">Silahkan anda masuk terlebuh dahulu</h6>
+              <h6 class="font-weight-light">Silahkan anda masuk terlebih dahulu</h6>
               <form method="POST" action="/login">
+              @csrf
                 @if(Session::has('success'))
                 <div class="alert alert-success">{{ Session::get('success') }}</div>
                 @endif
@@ -41,11 +42,11 @@
                 @endif
                 @csrf
                 <div class="form-group">
-                  <input type="email" name="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email" value="{{ old('email') }}">
+                  <input type="email" name="email" class="form-control form-control-lg" required id="exampleInputEmail1" placeholder="Email" value="{{ old('email') }}">
                   <span class="text-danger">@error('email') {{ $message }} @enderror</span>
                 </div>
                 <div class="form-group">
-                  <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password" value="{{ old('password') }}">
+                  <input type="password" name="password" class="form-control form-control-lg" required id="exampleInputPassword1" placeholder="Password" value="{{ old('password') }}">
                   <span class="text-danger">@error('password') {{ $message }} @enderror</span>
                 </div>
                 <div class="mt-3">

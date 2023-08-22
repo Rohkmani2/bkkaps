@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Loker;
+use App\Models\Perusahaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -16,8 +17,9 @@ class LokerController extends Controller
      */
     public function index()
     {
-        $loker = DB::table('loker')->get();
-        return view('loker.loker', ['loker' => $loker]);
+        $loker = Loker::latest()->get();
+        $perusahaan = Perusahaan::get();
+        return view('loker.loker', ['loker' => $loker,'perusahaan'=>$perusahaan]);
     }
 
     /**
@@ -46,8 +48,11 @@ class LokerController extends Controller
         ];
 
         $validate = $request->validate([
-            'nama' => 'required|string',
+            'id_perusahaan' => 'required',
             'posisi' => 'required|string',
+            'usia' => 'required|string',
+            'pendidikan' => 'required|string',
+            'lokasi' => 'required|string',
             'detail' => 'required|string',
             'foto' => 'required|max:2000|mimes:png,jpg,jpeg,jfif',
         ],$messages);
@@ -58,7 +63,7 @@ class LokerController extends Controller
         $loker = Loker::create($validate);
 
         if($loker){
-            return redirect('/loker')->with('success', 'Pendaftaran Lowongan Kerja berhasil ditambahkan');
+            return redirect()->back()->with('success', 'Pendaftaran Lowongan Kerja berhasil ditambahkan');
         } else {
             return back()->with('fail',' Terdapat kesalahan saat memasukan data');
         }
@@ -109,11 +114,25 @@ class LokerController extends Controller
         $loker->update([
             "nama" => $request->nama,
             "posisi" => $request->posisi,
+            "usia" => $request->usia,
+            "pendidikan" => $request->pendidikan,
+            "lokasi" => $request->lokasi,
             "detail" => $request->detail,
             "foto" => $data
         ]);
 
-        return redirect('loker')->with('success', 'Berhasil diupdate');
+        return redirect()->back()->with('success', 'Berhasil diupdate');
+    }
+
+    public function updateStatusLoker(Request $request, $id)
+    {
+        $loker = Loker::findOrFail($id);
+
+        $loker->update([
+            'status' => $request->status,
+        ]);
+
+        return redirect()->back()->with('success', 'Berhasil diupdate');
     }
 
     /**
@@ -126,7 +145,7 @@ class LokerController extends Controller
     {
         $loker = Loker::find($id);
         $loker->delete();
-        return redirect('loker')->with('success',' Penghapusan berhasil.');
+        return redirect()->back()->with('success',' Penghapusan berhasil.');
     }
 }
 

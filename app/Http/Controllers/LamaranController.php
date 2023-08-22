@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Lamaran;
+use Illuminate\Http\Request;
 use App\Exports\LamaranExport;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 class LamaranController extends Controller
 {
@@ -21,7 +22,7 @@ class LamaranController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if(auth()->user()->level == 'admin'){
+        if(auth()->user()->level == 'admin' || 'user'){
 
             $lamaran = DB::table('lamaran')->get();
         }else{
@@ -64,15 +65,23 @@ class LamaranController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    //proses pengajuan lamaran
     public function store(Request $request)
     {
+        // $userID = Auth::id(); // Mendapatkan ID pengguna yang sedang login
+        // $user = User::find($userID); // Mengambil data pengguna dari database
+
         $validate = $request->validate([
+            'id_user'=>'',
+            'id_perusahaan'=>'',
+            'id_loker'=>'',
             'nama' => 'required',
             'jenis_kelamin' => 'required',
             'email' => 'required',
             'nik' => 'required',
             'telepon' => 'required',
-            'kota' => 'required',
+            'ttl' => 'required',
             'alamat' => 'required',
             'agama' => 'required',
             'tgl_lahir' => 'required',
@@ -87,11 +96,13 @@ class LamaranController extends Controller
             'cv' => 'required',
 
         ]);
-
+        $validate['id_loker']=$request->loker;
+        $validate['id_perusahaan'] = $request->perusahaan;
+        $validate['id_user'] = auth()->user()->id;
         $validate['cv']=$request->file('cv')->store('cv_image');
         $lamaran = Lamaran::create($validate);
         if($lamaran){
-            return redirect('lamaran')->with('success',' Data Lamaran Anda berhasil ditambahkan');
+            return redirect()->back()->with('success',' Data Lamaran Anda berhasil ditambahkan');
         } else {
             return back()->with('fail',' Terdapat kesalahan saat memasukan data');
         }
@@ -134,7 +145,7 @@ class LamaranController extends Controller
 
         if ($request->hasfile('cv')) {
             Storage::delete($lamaran->cv);
-            $data = $request->file('cv')->store('cv_docx');
+            $data = $request->file('cv')->store('cv_image');
         }else{
             $data = $lamaran->cv;
         }
@@ -144,7 +155,7 @@ class LamaranController extends Controller
             "jenis_kelamin" => $request->jenis_kelamin,
             "email" => $request->email,
             "telepon" => $request->telepon,
-            "kota" => $request->kota,
+            "ttl" => $request->ttl,
             "alamat" => $request->alamat,
             "agama" => $request->agama,
             "nik" => $request->nik,
@@ -160,7 +171,18 @@ class LamaranController extends Controller
             "cv" => $data
         ]);
 
-        return redirect('lamaran')->with('success', 'Berhasil diupdate');
+        return redirect()->back()->with('success', 'Berhasil diupdate');
+    }
+
+    public function updateStatusLamaran(Request $request, $id)
+    {
+        $lamaran = Lamaran::findOrFail($id);
+
+        $lamaran->update([
+            'status' => $request->status,
+        ]);
+
+        return redirect()->back()->with('success', 'Berhasil diupdate');
     }
 
 
@@ -170,9 +192,10 @@ class LamaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id){
+    public function destroy($id)
+    {
         $lamaran = Lamaran::find($id);
         $lamaran->delete();
-        return redirect('lamaran')->with('success',' Penghapusan berhasil.');
+        return redirect()->back()->with('success',' Penghapusan berhasil.');
     }
 }

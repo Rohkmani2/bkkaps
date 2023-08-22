@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>RoyalUI Admin</title>
+    <title>REGISTER</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../../vendors/ti-icons/css/themify-icons.css">
     <link rel="stylesheet" href="../../vendors/base/vendor.bundle.base.css">
@@ -15,7 +15,7 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="../../css/style.css">
     <!-- endinject -->
-    <link rel="shortcut icon" href="../../images/favicon.png" />
+    <link rel="shortcut icon" href="../../images/bkkonewie.png" />
 </head>
 
 <body>
@@ -27,7 +27,7 @@
                         <div class="auth-form-light text-left py-5 px-4 px-sm-5">
                             <div class="brand-logo">
                                 <center>
-                                    <img src="../../images/bkkonewie.jpg" alt="logo">
+                                    <img src="../../images/bkkonewie.png" alt="logo">
                                 </center>
                             </div>
                             <h4>Buat Akun Anda</h4>
@@ -45,7 +45,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="exampleInputUsername1">Nama Lengkap</label>
-                                    <input type="text" name="nama" class="form-control" id="exampleInputUsername1"
+                                    <input type="text" name="nama" class="form-control" required id="exampleInputUsername1"
                                         placeholder="nama">
                                     @error('nama')
                                         <span class="invalid-feedback" role="alert">
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email</label>
-                                    <input type="email" name="email" class="form-control" id="exampleInputEmail1"
+                                    <input type="email" name="email" class="form-control" required id="exampleInputEmail1"
                                         placeholder="Email">
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -64,18 +64,8 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputConfirmPassword1">No Handphone</label>
-                                    <input type="text" name="telepon" class="form-control"
-                                        id="exampleInputConfirmPassword1" placeholder="No Handphone">
-                                    @error('telepon')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
                                     <label for="exampleInputPassword1">Kata Sandi</label>
-                                    <input type="password" name="password" class="form-control"
+                                    <input type="password" name="password" required class="form-control"
                                         id="exampleInputPassword1" placeholder="Kata Sandi">
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -84,12 +74,14 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Level</label>
-                                    <select id="inputState" name="level" class="form-control">
-                                        <option selected>Pilih level Penguna...</option>
-                                        <option value="user">User</option>
-                                        <option value="perusahaan">Perusahaan</option>
-                                    </select>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect2">Pilih Pengguna</label>
+                                        <select class="form-control" name="level" required id="exampleFormControlSelect2">
+                                          <option selected>Pilih Pengguna...</option>
+                                          <option value="pencaker">Pencaker</option>
+                                          <option value="perusahaan">Perusahaan</option>
+                                        </select>
+                                      </div>
                                     @error('level')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
